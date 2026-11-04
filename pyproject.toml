@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scguard-mcp"
+version = "0.1.1"
+description = "Read-only MCP server for software supply-chain security triage (GitHub code scanning + Dependabot, OSV, EPSS, CISA KEV)"
+requires-python = ">=3.10"
+dependencies = [
+  "mcp==2.3.0",
+  "httpx==0.28.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==9.2.0",
+  "respx==0.23.1",
+]
+
+[project.scripts]
+scguard-mcp = "scguard.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "S"]
+ignore = ["S101"]  # assert is fine in tests
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
